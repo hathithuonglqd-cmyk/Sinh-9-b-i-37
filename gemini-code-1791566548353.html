@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 Phiếu Bài Tập: Các Quy Luật Di Truyền Của Mendel (KHTN 9) 🐾</title>
+    <style>
+        :root {
+            --bg-color: #FFFDF9;
+            --primary-pink: #FF8FA3;
+            --dark-pink: #D93856;
+            --light-pink: #FFF2F4;
+            --border-pink: #FFC2D1;
+            --sec-nb-bg: #E8F5E9;
+            --sec-nb-color: #2E7D32;
+            --sec-th-bg: #E3F2FD;
+            --sec-th-color: #1565C0;
+            --sec-vd-bg: #FFF3E0;
+            --sec-vd-color: #E65100;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 10.5pt;
+            line-height: 1.6;
+            color: #333333;
+            background-color: #F7F5F0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .worksheet-container {
+            max-width: 820px;
+            margin: 0 auto;
+            background-color: var(--bg-color);
+            border-radius: 20px;
+            padding: 25px 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border: 3px solid #F0EAE1;
+            position: relative;
+        }
+
+        /* Modal nhập thông tin ban đầu */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .modal-box {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            border: 3px dashed var(--primary-pink);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .modal-box h2 { color: var(--dark-pink); margin-top: 0; font-size: 14pt; }
+        .input-group { margin-bottom: 15px; text-align: left; }
+        .input-group label { display: block; font-weight: bold; margin-bottom: 5px; color: #555; }
+        .input-group input {
+            width: 100%; padding: 10px; border: 2px solid var(--border-pink);
+            border-radius: 10px; outline: none; font-size: 10pt;
+        }
+
+        /* Đồng hồ bấm giờ */
+        .timer-badge {
+            position: fixed; top: 15px; right: 20px; background-color: #FFF;
+            border: 2px solid var(--primary-pink); padding: 8px 15px; border-radius: 20px;
+            font-weight: bold; color: var(--dark-pink); box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            z-index: 100; font-size: 11pt;
+        }
+
+        .btn {
+            background-color: var(--primary-pink); color: white; border: none;
+            padding: 10px 20px; border-radius: 25px; font-weight: bold; font-size: 10pt;
+            cursor: pointer; box-shadow: 0 4px 10px rgba(255, 143, 163, 0.4); transition: all 0.2s ease;
+        }
+        .btn:hover { transform: translateY(-2px); background-color: var(--dark-pink); }
+
+        .btn-submit {
+            background-color: #4CAF50; box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+            width: 100%; padding: 14px; font-size: 12pt; margin-top: 20px; border-radius: 15px;
+        }
+        .btn-submit:hover { background-color: #388E3C; }
+
+        /* Header Banner */
+        .header-card {
+            background-color: var(--light-pink); border: 2px dashed var(--primary-pink);
+            border-radius: 15px; padding: 12px 18px; margin-bottom: 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .header-left { width: 58%; }
+        .header-right { width: 40%; }
+        .doc-title { font-size: 13.5pt; font-weight: bold; color: var(--dark-pink); margin: 0 0 3px 0; }
+
+        .student-info-box {
+            background-color: #FFFFFF; border: 1.5px solid var(--border-pink);
+            border-radius: 10px; padding: 8px 12px; font-size: 9pt;
+        }
+
+        /* NỘI DUNG 1: SƠ ĐỒ TRỰC QUAN CUTE */
+        .nst-diagram-container {
+            background-color: #FFFDF9; border: 2.5px dashed #FF8FA3;
+            border-radius: 20px; padding: 18px; margin-bottom: 25px;
+        }
+        .diagram-title { text-align: center; color: #D93856; font-size: 12pt; font-weight: bold; margin-bottom: 15px; }
+
+        .nst-layout {
+            display: flex; justify-content: space-around; align-items: stretch;
+            gap: 15px; flex-wrap: wrap;
+        }
+
+        .nst-box {
+            background: #FFFFFF; border: 1.5px solid #FFE0E6; border-radius: 15px;
+            padding: 14px; text-align: center; width: 47%; min-width: 280px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .nst-box-title { font-weight: bold; font-size: 10.5pt; margin-bottom: 8px; }
+
+        .structure-list {
+            text-align: left; font-size: 8.5pt; line-height: 1.6; margin-top: 8px;
+            background-color: #F3E5F5; padding: 8px 12px; border-radius: 10px;
+        }
+
+        /* NỘI DUNG 2: BÀI TẬP TƯƠNG TÁC */
+        .section-header {
+            border-radius: 12px; padding: 8px 14px; margin-top: 20px;
+            margin-bottom: 12px; font-weight: bold; font-size: 10.5pt;
+        }
+        .sec-nhan-biet { background-color: var(--sec-nb-bg); color: var(--sec-nb-color); border: 1.5px solid #A5D6A7; }
+        .sec-thong-hieu { background-color: var(--sec-th-bg); color: var(--sec-th-color); border: 1.5px solid #90CAF9; }
+        .sec-van-dung { background-color: var(--sec-vd-bg); color: var(--sec-vd-color); border: 1.5px solid #FFCC80; }
+
+        .question-card {
+            background-color: #FFFFFF; border: 1px solid #E0E0E0; border-radius: 12px;
+            padding: 12px 16px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .q-title { font-weight: bold; color: #444444; margin-bottom: 8px; }
+        .q-title .q-num { color: #FF6B8B; font-size: 10.5pt; }
+
+        .badge { font-size: 7.5pt; padding: 2px 8px; border-radius: 10px; color: white; float: right; }
+        .badge-nb { background-color: #66BB6A; }
+        .badge-th { background-color: #42A5F5; }
+        .badge-vd { background-color: #FFA726; }
+
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; margin-top: 8px; }
+        .opt-item {
+            background-color: #FAFAFA; border: 1px solid #E0E0E0; border-radius: 8px;
+            padding: 8px 12px; cursor: pointer; transition: all 0.2s; user-select: none; font-size: 9.5pt;
+        }
+        .opt-item:hover { background-color: #FFF2F4; border-color: var(--primary-pink); }
+        .opt-item.selected { background-color: #FFE0E6; border-color: var(--dark-pink); font-weight: bold; color: var(--dark-pink); }
+
+        .word-bank {
+            background-color: #FFF8E1; border: 1.5px dashed #FFE082; border-radius: 8px;
+            padding: 6px; margin-bottom: 8px; font-weight: bold; color: #F57F17; text-align: center; font-size: 9pt;
+        }
+        .fill-box { background-color: #FAFAFA; border: 1px solid #E0E0E0; border-radius: 8px; padding: 10px 14px; line-height: 2.2; font-size: 9.5pt; }
+        .blank-select {
+            border: none; border-bottom: 2px solid var(--primary-pink); background: transparent;
+            font-weight: bold; color: var(--dark-pink); padding: 2px 4px; outline: none; font-size: 9.5pt;
+        }
+
+        .tf-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 9.5pt; }
+        .tf-table th, .tf-table td { padding: 8px; border: 1px solid #E0E0E0; text-align: left; }
+        .tf-table th { background-color: #FAFAFA; }
+
+        /* Kéo thả (Drag & Drop) */
+        .drag-container { display: flex; gap: 15px; margin-top: 10px; flex-wrap: wrap; }
+        .source-pool { background: #EFEBE9; padding: 10px; border-radius: 10px; width: 100%; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; min-height: 45px; justify-content: center;}
+        .drag-item { background: white; border: 2px solid #8D6E63; padding: 6px 12px; border-radius: 8px; cursor: grab; font-weight: bold; color: #5D4037; font-size: 9pt; user-select: none; }
+        .drop-zone { border: 2px dashed #BCAAA4; background: #FAFAFA; padding: 8px; border-radius: 8px; min-height: 40px; display: inline-flex; align-items: center; justify-content: center; width: 140px; vertical-align: middle; }
+        .drop-zone.dragover { background: #FFECB3; border-color: #FFA000; }
+
+        /* Phản hồi kết quả */
+        .result-feedback {
+            margin-top: 10px; font-weight: bold; font-size: 9pt; display: none;
+            padding: 10px 12px; border-radius: 8px; line-height: 1.5;
+        }
+        .feedback-correct { color: #2E7D32; background-color: #E8F5E9; border: 1px solid #C8E6C9; }
+        .feedback-wrong { color: #C62828; background-color: #FFEBEE; border: 1px solid #FFCDD2; }
+
+        .submit-status {
+            text-align: center; margin-top: 15px; font-weight: bold; font-size: 10.5pt; display: none; padding: 10px; border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ĐỒNG HỒ BẤM GIỜ -->
+    <div class="timer-badge" id="timer">⏱️ Thời gian: 00:00</div>
+
+    <!-- MODAL NHẬP THÔNG TIN BAN ĐẦU -->
+    <div class="modal-overlay" id="start-modal">
+        <div class="modal-box">
+            <h2>🌸 Chào Mừng Em Đến Với Thử Thách! 🐾</h2>
+            <p style="font-size: 9pt; color: #666;">Nhập thông tin để khám phá thế giới Di truyền học của Mendel nhé!</p>
+            <div class="input-group">
+                <label>Họ và tên học sinh:</label>
+                <input type="text" id="input-name" placeholder="Ví dụ: Hoàng Thu Thảo">
+            </div>
+            <div class="input-group">
+                <label>Lớp:</label>
+                <input type="text" id="input-class" placeholder="Ví dụ: 9A1">
+            </div>
+            <button class="btn" style="width: 100%; padding: 12px; font-size: 11pt;" onclick="startGame()">🚀 Bắt Đầu Làm Bài</button>
+        </div>
+    </div>
+
+    <div class="worksheet-container">
+
+        <!-- HEADER BANNER -->
+        <div class="header-card">
+            <div class="header-left">
+                <div class="doc-title">🌸 PHIẾU BÀI TẬP KHTN 9 🐾</div>
+                <div style="font-weight: bold; color: #594A42;">Bài 37: Các Quy Luật Di Truyền Của Mendel</div>
+                <div style="font-size: 8pt; color: #777;">Bộ sách Kết nối tri thức với cuộc sống</div>
+            </div>
+            <div class="header-right">
+                <div class="student-info-box">
+                    <div><b>Họ tên:</b> <span id="display-name" style="color:var(--dark-pink); font-weight:bold;">---</span></div>
+                    <div><b>Lớp:</b> <span id="display-class" style="color:var(--dark-pink); font-weight:bold;">---</span></div>
+                    <div><b>Điểm số:</b> <span id="score-display" style="font-weight:bold; color:var(--dark-pink); font-size: 11pt;">......../10</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NỘI DUNG 1: SƠ ĐỒ TRỰC QUAN CUTE -->
+        <div class="nst-diagram-container">
+            <div class="diagram-title">🧬 NỘI DUNG 1: SƠ ĐỒ CÁC QUY LUẬT MENDEL 🐾</div>
+
+            <div class="nst-layout">
+                <!-- HÌNH 1: QUY LUẬT PHÂN LI -->
+                <div class="nst-box" style="background: #FFF2F4; border-color: #FFC2D1;">
+                    <div class="nst-box-title" style="color: #D93856;">🌷 Quy luật Phân li (1 cặp tính trạng)</div>
+                    <div style="font-size: 16pt; margin: 4px 0; font-weight: bold; color: #D81B60;">
+                        Aa × Aa ➔ 3 Đỏ : 1 Trắng
+                    </div>
+                    <div class="structure-list" style="background-color: #FFE0E6;">
+                        <b>🧬 Cơ sở tế bào học:</b> Sự phân li đồng đều của các NST tương đồng trong giảm phân kéo theo sự phân li của các cặp allele.<br/>
+                        <b>✨ Kết quả F2:</b> Tỉ lệ kiểu gene: <b>1 AA : 2 Aa : 1 aa</b>. Tỉ lệ kiểu hình: 3 trội : 1 lặn.
+                    </div>
+                </div>
+
+                <!-- HÌNH 2: QUY LUẬT PHÂN LI ĐỘC LẬP -->
+                <div class="nst-box" style="background: #E8F5E9; border-color: #A5D6A7;">
+                    <div class="nst-box-title" style="color: #2E7D32;">🌽 Quy luật Phân li độc lập</div>
+                    <div style="font-size: 14pt; margin: 6px 0; font-weight: bold; color: #1B5E20; text-align: center;">
+                        AaBb × AaBb ➔ 9 : 3 : 3 : 1
+                    </div>
+                    <div class="structure-list" style="background-color: #C8E6C9;">
+                        <b>🧬 Cơ sở:</b> Các cặp allele nằm trên các cặp NST tương đồng khác nhau sẽ phân li độc lập và tổ hợp tự do trong giảm phân.<br/>
+                        <b>✨ Ý nghĩa:</b> Tạo ra vô số <b>biến dị tổ hợp</b> ở đời con, làm phong phú sinh giới.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NỘI DUNG 2: BÀI TẬP TƯƠNG TÁC -->
+        <div style="text-align:center; color:#D93856; font-weight:bold; font-size:12pt; margin-bottom:15px;">
+            📝 NỘI DUNG 2: HỆ THỐNG BÀI TẬP TƯƠNG TÁC (SBT KHTN 9) 🐾
+        </div>
+
+        <!-- ================= MỨC ĐỘ 1: NHẬN BIẾT ================= -->
+        <div class="section-header sec-nhan-biet">🌱 MỨC ĐỘ 1: NHẬN BIẾT</div>
+
+        <!-- CÂU 1: Trắc nghiệm nhiều lựa chọn -->
+        <div class="question-card" id="q1">
+            <div class="q-title"><span class="q-num">Câu 1 [Trắc nghiệm]:</span> Cơ thể có kiểu gene AaBbDD giảm phân bình thường hình thành tối đa bao nhiêu loại giao tử? (Dựa trên QL Phân li độc lập) <span class="badge badge-nb">Nhận biết</span></div>
+            <div class="options-grid">
+                <div class="opt-item" onclick="selectOption(this, 'q1', 'A')">A. 2</div>
+                <div class="opt-item" onclick="selectOption(this, 'q1', 'B')">B. 4</div>
+                <div class="opt-item" onclick="selectOption(this, 'q1', 'C')">C. 8</div>
+                <div class="opt-item" onclick="selectOption(this, 'q1', 'D')">D. 1</div>
+            </div>
+            <div class="result-feedback"></div>
+        </div>
+
+        <!-- CÂU 2: Điền từ -->
+        <div class="question-card" id="q2">
+            <div class="q-title"><span class="q-num">Câu 2 [Điền từ]:</span> Điền từ/cụm từ thích hợp vào chỗ trống để hoàn thành giải thích của Mendel: <span class="badge badge-nb">Nhận biết</span></div>
+            <div class="word-bank">[ gene | phân li | nhiễm sắc thể ]</div>
+            <div class="fill-box">
+                - Nhân tố di truyền mà Mendel nhắc tới thực chất chính là <select class="blank-select" id="q2_1"><option value="">(1) ...</option><option value="gene">gene</option><option value="allele">allele</option></select>.<br/>
+                - Các gene này nằm trên các phân tử <select class="blank-select" id="q2_2"><option value="">(2) ...</option><option value="nhiễm sắc thể">nhiễm sắc thể</option><option value="ribosome">ribosome</option></select>.<br/>
+                - Khi nhiễm sắc thể phân li trong giảm phân tạo giao tử thì nhân tố di truyền cũng <select class="blank-select" id="q2_3"><option value="">(3) ...</option><option value="phân li">phân li</option><option value="tổ hợp">tổ hợp</option></select> đồng đều về các giao tử.
+            </div>
+            <div class="result-feedback"></div>
+        </div>
+
+        <!-- ================= MỨC ĐỘ 2: THÔNG HIỂU ================= -->
+        <div class="section-header sec-thong-hieu">🐥 MỨC ĐỘ 2: THÔNG HIỂU</div>
+
+        <!-- CÂU 3: Trắc nghiệm Đúng / Sai -->
+        <div class="question-card" id="q3">
+            <div class="q-title"><span class="q-num">Câu 3 [Đúng / Sai]:</span> Đánh dấu vào ô Đúng hoặc Sai cho các nhận định sau: <span class="badge badge-th">Thông hiểu</span></div>
+            <table class="tf-table">
+                <tr><th>Nhận định sinh học</th><th style="width:60px; text-align:center;">Đúng</th><th style="width:60px; text-align:center;">Chọn Sai</th></tr>
+                <tr>
+                    <td>a) Phép lai hai cơ thể dị hợp 1 cặp gen (Aa × Aa) luôn cho đời con có tỉ lệ kiểu gene là 1 AA : 2 Aa : 1 aa.</td>
+                    <td style="text-align:center;"><input type="radio" name="q3_a" value="D"></td>
+                    <td style="text-align:center;"><input type="radio" name="q3_a" value="S"></td>
+                </tr>
+                <tr>
+                    <td>b) Sự tổ hợp ngẫu nhiên của 2 loại giao tử dị hợp 2 cặp gen (AaBb × AaBb) sẽ tạo ra đời con có tỉ lệ kiểu hình là 9 : 3 : 3 : 1.</td>
+                    <td style="text-align:center;"><input type="radio" name="q3_b" value="D"></td>
+                    <td style="text-align:center;"><input type="radio" name="q3_b" value="S"></td>
+                </tr>
+                <tr>
+                    <td>c) Cơ thể có kiểu gene AaBbDD sẽ cho ra 8 loại giao tử khác nhau.</td>
+                    <td style="text-align:center;"><input type="radio" name="q3_c" value="D"></td>
+                    <td style="text-align:center;"><input type="radio" name="q3_c" value="S"></td>
+                </tr>
+            </table>
+            <div class="result-feedback"></div>
+        </div>
+
+        <!-- CÂU 4: Kéo thả ghép cặp -->
+        <div class="question-card" id="q4">
+            <div class="q-title"><span class="q-num">Câu 4 [Kéo thả]:</span> Kéo số lượng loại giao tử thả vào đúng kiểu gene tương ứng của cơ thể giảm phân: <span class="badge badge-th">Thông hiểu</span></div>
+            
+            <div class="drag-container">
+                <div class="source-pool" id="pool">
+                    <span style="font-weight:bold; font-size:9pt; color:#5D4037;">Kéo các thẻ số lượng sau:</span>
+                    <div class="drag-item" draggable="true" id="item-4loai" ondragstart="drag(event)">4 loại giao tử</div>
+                    <div class="drag-item" draggable="true" id="item-2loai" ondragstart="drag(event)">2 loại giao tử</div>
+                    <div class="drag-item" draggable="true" id="item-1loai" ondragstart="drag(event)">1 loại giao tử</div>
+                </div>
+            </div>
+
+            <table class="tf-table" style="margin-top:12px;">
+                <tr><th>Kiểu gene cơ thể mẹ</th><th>Khu vực thả thẻ số loại giao tử sinh ra</th></tr>
+                <tr>
+                    <td><b>1. AaBb</b></td>
+                    <td><div class="drop-zone" id="drop-AaBb" ondragover="allowDrop(event)" ondrop="drop(event, '4 loại giao tử')">Thả thẻ vào đây</div></td>
+                </tr>
+                <tr>
+                    <td><b>2. AABb</b></td>
+                    <td><div class="drop-zone" id="drop-AABb" ondragover="allowDrop(event)" ondrop="drop(event, '2 loại giao tử')">Thả thẻ vào đây</div></td>
+                </tr>
+                <tr>
+                    <td><b>3. AABB</b></td>
+                    <td><div class="drop-zone" id="drop-AABB" ondragover="allowDrop(event)" ondrop="drop(event, '1 loại giao tử')">Thả thẻ vào đây</div></td>
+                </tr>
+            </table>
+            <div class="result-feedback"></div>
+        </div>
+
+        <!-- ================= MỨC ĐỘ 3: VẬN DỤNG ================= -->
+        <div class="section-header sec-van-dung">🚀 MỨC ĐỘ 3: VẬN DỤNG</div>
+
+        <!-- CÂU 5: Trắc nghiệm Vận dụng tính toán -->
+        <div class="question-card" id="q5">
+            <div class="q-title"><span class="q-num">Câu 5 [Trắc nghiệm Vận dụng]:</span> Ở đậu Hà Lan, gene A quy định hạt vàng, a hạt xanh; B quy định hạt trơn, b hạt nhăn. Cho phép lai P: <b>AABb (hạt vàng, trơn) × aaBb (hạt xanh, trơn)</b>. Tỉ lệ kiểu hình phân li ở đời con sẽ là: (SBT Bài 37) <span class="badge badge-vd">Vận dụng</span></div>
+            <div class="options-grid">
+                <div class="opt-item" onclick="selectOption(this, 'q5', 'A')">A. 3 vàng, trơn : 1 xanh, nhăn</div>
+                <div class="opt-item" onclick="selectOption(this, 'q5', 'B')">B. 3 vàng, trơn : 1 vàng, nhăn</div>
+                <div class="opt-item" onclick="selectOption(this, 'q5', 'C')">C. 9 vàng, trơn : 3 vàng, nhăn : 3 xanh, trơn : 1 xanh, nhăn</div>
+                <div class="opt-item" onclick="selectOption(this, 'q5', 'D')">D. 1 vàng, trơn : 1 xanh, trơn</div>
+            </div>
+            <div class="result-feedback"></div>
+        </div>
+
+        <!-- NÚT NỘP BÀI -->
+        <button class="btn btn-submit" id="btn-submit-main" onclick="submitWorksheet()">🎮 NỘP BÀI VÀ GỬI KẾT QUẢ VỀ HỆ THỐNG</button>
+        <div class="submit-status" id="submit-status">⏳ Đang gửi kết quả lên hệ thống Google Sheets...</div>
+
+    </div>
+
+    <!-- JAVASCRIPT XỬ LÝ LOGIC TRÒ CHƠI & GỬI API POST -->
+    <script>
+        let seconds = 0;
+        let timerInterval = null;
+        let isSubmitted = false;
+        const userAnswers = { q1: null, q3_a: null, q3_b: null, q3_c: null, q5: null };
+        const dragAnswers = { 'drop-AaBb': '', 'drop-AABb': '', 'drop-AABB': '' };
+
+        function startGame() {
+            const name = document.getElementById('input-name').value.trim();
+            const className = document.getElementById('input-class').value.trim();
+
+            if (!name || !className) {
+                alert("Vui lòng điền đầy đủ Họ và tên và Lớp của em trước khi bắt đầu nhé!");
+                return;
+            }
+
+            document.getElementById('display-name').innerText = name;
+            document.getElementById('display-class').innerText = className;
+            document.getElementById('start-modal').style.display = 'none';
+
+            timerInterval = setInterval(() => {
+                seconds++;
+                let m = Math.floor(seconds / 60).toString().padStart(2, '0');
+                let s = (seconds % 60).toString().padStart(2, '0');
+                document.getElementById('timer').innerText = `⏱️ Thời gian: ${m}:${s}`;
+            }, 1000);
+        }
+
+        function selectOption(element, qId, value) {
+            if (isSubmitted) return; // Khóa sau khi đã nộp
+            const parent = element.parentElement;
+            parent.querySelectorAll('.opt-item').forEach(item => item.classList.remove('selected'));
+            element.classList.add('selected');
+            userAnswers[qId] = value;
+        }
+
+        // Kéo thả logic
+        function allowDrop(ev) {
+            if (isSubmitted) return;
+            ev.preventDefault();
+            ev.currentTarget.classList.add('dragover');
+        }
+
+        function drag(ev) {
+            if (isSubmitted) return;
+            ev.dataTransfer.setData("text", ev.target.innerText);
+        }
+
+        document.querySelectorAll('.drop-zone').forEach(zone => {
+            zone.addEventListener('dragleave', e => e.currentTarget.classList.remove('dragover'));
+        });
+
+        function drop(ev, correctVal) {
+            if (isSubmitted) return;
+            ev.preventDefault();
+            ev.currentTarget.classList.remove('dragover');
+            const data = ev.dataTransfer.getData("text");
+            ev.currentTarget.innerText = data;
+            ev.currentTarget.style.fontWeight = "bold";
+            ev.currentTarget.style.color = "#D93856";
+            dragAnswers[ev.currentTarget.id] = data;
+        }
+
+        // Chấm bài & Gửi API Google Sheets
+        function submitWorksheet() {
+            if (isSubmitted) return;
+            if (!confirm("Em có chắc chắn muốn nộp bài? Sau khi nộp em sẽ không thể chỉnh sửa đáp án!")) return;
+
+            isSubmitted = true;
+            clearInterval(timerInterval);
+
+            // Khóa toàn bộ các trường chọn & kéo thả
+            document.querySelectorAll('.opt-item').forEach(el => el.style.pointerEvents = 'none');
+            document.querySelectorAll('input[type="radio"]').forEach(el => el.disabled = true);
+            document.querySelectorAll('select').forEach(el => el.disabled = true);
+            document.querySelectorAll('.drag-item').forEach(el => el.draggable = false);
+
+            let score = 0;
+            let totalQuestions = 5;
+            let chiTietText = [];
+
+            // Chấm Câu 1: Trắc nghiệm (Đáp án đúng: B)
+            const q1Fb = document.querySelector('#q1 .result-feedback');
+            q1Fb.style.display = 'block';
+            if (userAnswers['q1'] === 'B') {
+                q1Fb.className = 'result-feedback feedback-correct';
+                q1Fb.innerHTML = '🎉 <b>Đúng (+2.0 điểm):</b> Rất giỏi! Kiểu gen AaBbDD có 2 cặp dị hợp (Aa, Bb), số loại giao tử tạo ra là 2^2 = 4 loại.';
+                score++;
+                chiTietText.push("Câu 1: Đúng");
+            } else {
+                q1Fb.className = 'result-feedback feedback-wrong';
+                q1Fb.innerHTML = '❌ <b>Sai (0.0 điểm):</b> Đáp án chuẩn: B. 4.<br>💡 <i>Giải thích:</i> Cơ thể AaBbDD giảm phân cho 4 loại giao tử là ABD, AbD, aBD, abD.';
+                chiTietText.push("Câu 1: Sai");
+            }
+
+            // Chấm Câu 2: Điền từ (gene, nhiễm sắc thể, phân li)
+            const q2_1 = document.getElementById('q2_1').value;
+            const q2_2 = document.getElementById('q2_2').value;
+            const q2_3 = document.getElementById('q2_3').value;
+            const q2Fb = document.querySelector('#q2 .result-feedback');
+            q2Fb.style.display = 'block';
+            let q2Score = 0;
+            if (q2_1 === 'gene') q2Score += 0.33;
+            if (q2_2 === 'nhiễm sắc thể') q2Score += 0.33;
+            if (q2_3 === 'phân li') q2Score += 0.34;
+
+            if (q2Score >= 0.9) {
+                q2Fb.className = 'result-feedback feedback-correct';
+                q2Fb.innerHTML = '🎉 <b>Đúng (+2.0 điểm):</b> Điền từ hoàn hảo! Bạn đã nắm rõ cơ sở tế bào học của Mendel.';
+                score++;
+                chiTietText.push("Câu 2: Đúng");
+            } else {
+                q2Fb.className = 'result-feedback feedback-wrong';
+                q2Fb.innerHTML = `❌ <b>Chưa hoàn toàn chính xác (Điểm thành phần: ${(q2Score*2).toFixed(1)}/2.0):</b><br>💡 <i>Giải thích:</i> (1) gene, (2) nhiễm sắc thể, (3) phân li.`;
+                chiTietText.push(`Câu 2: Sai (${(q2Score*2).toFixed(1)})`);
+            }
+
+            // Chấm Câu 3: Đúng / Sai (a: Đúng, b: Đúng, c: Sai)
+            const q3_a = document.querySelector('input[name="q3_a"]:checked')?.value;
+            const q3_b = document.querySelector('input[name="q3_b"]:checked')?.value;
+            const q3_c = document.querySelector('input[name="q3_c"]:checked')?.value;
+            const q3Fb = document.querySelector('#q3 .result-feedback');
+            q3Fb.style.display = 'block';
+            let q3Correct = (q3_a === 'D' && q3_b === 'D' && q3_c === 'S');
+            if (q3Correct) {
+                q3Fb.className = 'result-feedback feedback-correct';
+                q3Fb.innerHTML = '🎉 <b>Đúng (+2.0 điểm):</b> Rất xuất sắc! Nhận định (c) sai vì AaBbDD chỉ có 2 cặp dị hợp, sinh ra tối đa 4 loại giao tử, không phải 8.';
+                score++;
+                chiTietText.push("Câu 3: Đúng");
+            } else {
+                q3Fb.className = 'result-feedback feedback-wrong';
+                q3Fb.innerHTML = '❌ <b>Sai (0.0 điểm):</b><br>💡 <i>Giải thích chuẩn:</i> a) Đúng (QL Phân li); b) Đúng (QL Phân li độc lập); c) Sai (Chỉ sinh 4 loại giao tử).';
+                chiTietText.push("Câu 3: Sai");
+            }
+
+            // Chấm Câu 4: Kéo thả
+            const q4Fb = document.querySelector('#q4 .result-feedback');
+            q4Fb.style.display = 'block';
+            if (dragAnswers['drop-AaBb'].includes('4') && dragAnswers['drop-AABb'].includes('2') && dragAnswers['drop-AABB'].includes('1')) {
+                q4Fb.className = 'result-feedback feedback-correct';
+                q4Fb.innerHTML = '🎉 <b>Đúng (+2.0 điểm):</b> Ghép cặp rất chính xác! Công thức tính số loại giao tử là 2^n (n là số cặp dị hợp).';
+                score++;
+                chiTietText.push("Câu 4: Đúng");
+            } else {
+                q4Fb.className = 'result-feedback feedback-wrong';
+                q4Fb.innerHTML = '❌ <b>Sai (0.0 điểm):</b><br>💡 <i>Giải thích:</i> AaBb (2 cặp dị hợp) -> 4 loại. AABb (1 cặp dị hợp) -> 2 loại. AABB (0 cặp dị hợp) -> 1 loại.';
+                chiTietText.push("Câu 4: Sai");
+            }
+
+            // Chấm Câu 5: Vận dụng tính toán (Đáp án B)
+            const q5Fb = document.querySelector('#q5 .result-feedback');
+            q5Fb.style.display = 'block';
+            if (userAnswers['q5'] === 'B') {
+                q5Fb.className = 'result-feedback feedback-correct';
+                q5Fb.innerHTML = '🎉 <b>Đúng (+2.0 điểm):</b> Tuyệt vời! Bạn tách riêng 2 phép lai: (AA x aa) ➔ 100% Aa (Vàng). Và (Bb x Bb) ➔ 3 Trơn : 1 Nhăn. Tổ hợp lại được 3 vàng trơn : 1 vàng nhăn.';
+                score++;
+                chiTietText.push("Câu 5: Đúng");
+            } else {
+                q5Fb.className = 'result-feedback feedback-wrong';
+                q5Fb.innerHTML = '❌ <b>Sai (0.0 điểm):</b> Đáp án chuẩn: B. 3 vàng, trơn : 1 vàng, nhăn.<br>💡 <i>Giải thích:</i> Tính riêng: AA × aa → 100% vàng. Bb × Bb → 3 trơn : 1 nhăn. Nhân 2 tỉ lệ: 1 × (3:1) = 3 vàng, trơn : 1 vàng, nhăn.';
+                chiTietText.push("Câu 5: Sai");
+            }
+
+            // Tính thang điểm 10
+            const finalScore = ((score / totalQuestions) * 10).toFixed(1);
+            document.getElementById('score-display').innerText = `${finalScore} / 10`;
+
+            document.getElementById('btn-submit-main').disabled = true;
+            document.getElementById('btn-submit-main').innerText = '✅ ĐÃ NỘP BÀI THÀNH CÔNG';
+
+            // GỬI DỮ LIỆU VỀ GOOGLE SHEETS BẰNG FETCH POST JSON
+            const hoTen = document.getElementById('display-name').innerText;
+            const lop = document.getElementById('display-class').innerText;
+            const payload = {
+                hoTen: hoTen,
+                lop: lop,
+                diemSo: finalScore,
+                chiTiet: chiTietText.join("; ")
+            };
+
+            const statusEl = document.getElementById('submit-status');
+            statusEl.style.display = 'block';
+
+            // URL Web App Google Apps Script mới nhất do bạn cung cấp
+            const apiUrl = "https://script.google.com/macros/s/AKfycbwNA8V5INAjMUfeIJU26SVVe4igG-egApLjle8O9WUUlRWq2viG7LyEKXHvaQWrUbA/exec";
+
+            fetch(apiUrl, {
+                method: "POST",
+                mode: "no-cors", 
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                statusEl.innerText = "✅ Đã tự động lưu kết quả bài làm vào hệ thống Google Sheets thành công!";
+                statusEl.style.color = "#2E7D32";
+                statusEl.style.backgroundColor = "#E8F5E9";
+                statusEl.style.border = "1px solid #A5D6A7";
+            })
+            .catch(error => {
+                console.error("Lỗi gửi API:", error);
+                statusEl.innerText = "⚠️ Đã chấm điểm xong nhưng có lỗi kết nối khi lưu tự động vào Google Sheets.";
+                statusEl.style.color = "#C62828";
+                statusEl.style.backgroundColor = "#FFEBEE";
+                statusEl.style.border = "1px solid #EF9A9A";
+            });
+
+            let m = Math.floor(seconds / 60);
+            let s = seconds % 60;
+            alert(`🎉 Chúc mừng ${hoTen} đã hoàn thành bài làm!\n⏱️ Thời gian: ${m} phút ${s} giây.\n💯 Điểm số: ${finalScore} / 10 điểm.`);
+        }
+    </script>
+</body>
+</html>
